@@ -48,7 +48,7 @@ module.exports = function snare(callback) {
       HACCCHR: 'iso-8859-1,*,utf-8',
       HACCLNG: 'en-us,en',
       IGGY: IGGY,
-      INTLOC: 'https://account.enmasse.com/',
+      INTLOC: 'https://account.tera.gameforge.com/',
       JBRCM: 'WOW64; KHTML, like Gecko',
       JBRNM: 'Chrome',
       JBROS: 'Windows NT 6.1',

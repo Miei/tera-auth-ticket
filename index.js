@@ -9,7 +9,7 @@ function makeHeaders(o) {
       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
       'Accept-Language': 'en-us,en',
       'Accept-Charset': 'iso-8859-1,*,utf-8',
-      'Host': 'account.enmasse.com',
+      'Host': 'account.tera.gameforge.com',
       'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.21 (KHTML, like Gecko) Chrome/19.0.1046.0 Safari/535.21',
     },
     o
@@ -22,7 +22,7 @@ class webClient {
     this.pass = pass;
     this.ready = -1;
     this.request = request.defaults({
-      baseUrl: 'https://account.enmasse.com',
+      baseUrl: 'https://account.tera.gameforge.com',
       headers: makeHeaders(),
       jar: true,
       strictSSL: false,
@@ -35,17 +35,19 @@ class webClient {
       if (this.ready !== 1) return;
 
       this.request('/launcher/1', (err, res, body) => {
-        const token = body.match(/meta content="(.+?)" name="csrf-token"/i);
+ /*
+        const token = body.match(/"authenticity_token" type="hidden" value="(.+?)"/i)[1]
         if (!token) {
           console.error('failed to get CSRF token');
           return;
         }
 
+*/
         this.request({
           url: '/launcher/1/account_server_info?attach_auth_ticket=1',
           headers: makeHeaders({
-            'Referer': 'https://account.enmasse.com/launcher/1',
-            'X-CSRF-Token': token[1],
+            'Referer': 'https://account.tera.gameforge.com/launcher/1',
+//            'X-CSRF-Token': token[1],
             'X-Requested-With': 'XMLHttpRequest',
           }),
         }, (err, res, body) => {
@@ -107,7 +109,7 @@ class webClient {
         return;
       }
 
-      const token = body.match(/meta content="(.+?)" name="csrf-token"/i);
+      const token = body.match(/"authenticity_token" type="hidden" value="(.+?)"/i)
       if (!token) {
         console.error('failed to get CSRF token');
         return;
@@ -140,9 +142,9 @@ class webClient {
     this.request.post({
       url: '/authenticate',
       headers: makeHeaders({
-        'Host': 'account.enmasse.com',
-        'Origin': 'https://account.enmasse.com',
-        'Referer': 'https://account.enmasse.com/',
+        'Host': 'account.tera.gameforge.com',
+        'Origin': 'https://account.tera.gameforge.com',
+        'Referer': 'https://account.tera.gameforge.com/',
       }),
       form: params,
     }, (err, res, body) => {
